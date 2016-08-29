@@ -19,10 +19,11 @@ namespace Extreme.Net
     /// </summary>
     public class HttpRequest : IDisposable
     {
-        // Используется для определения того, сколько байт было отправлено/считано.
+
+        // Using for detect how much bytes sent/received
         private sealed class HttpWraperStream : Stream
         {
-            #region Поля (закрытые)
+            #region Fields (private)
 
             private Stream _baseStream;
             private int _sendBufferSize;
@@ -30,13 +31,13 @@ namespace Extreme.Net
             #endregion
 
 
-            #region Свойства (открытые)
+            #region Properties (public)
 
             public Action<int> BytesReadCallback { get; set; }
 
             public Action<int> BytesWriteCallback { get; set; }
 
-            #region Переопределённые
+            #region Overrided
 
             public override bool CanRead
             {
@@ -192,15 +193,15 @@ namespace Extreme.Net
         #region Статические свойства (открытые)
 
         /// <summary>
-        /// Возвращает или задаёт значение, указывающие, нужно ли отключать прокси-клиент для локальных адресов.
+        /// Gets or sets a value indicating whether to disable client proxy for local addresses.
         /// </summary>
-        /// <value>Значение по умолчанию — <see langword="false"/>.</value>
+        /// <value>Default - <see langword="false"/>.</value>
         public static bool DisableProxyForLocalAddress { get; set; }
 
         /// <summary>
-        /// Возвращает или задаёт глобальный прокси-клиент.
+        ///  Gets or sets a global proxy client
         /// </summary>
-        /// <value>Значение по умолчанию — <see langword="null"/>.</value>
+        /// <value>Default — <see langword="null"/>.</value>
         public static ProxyClient GlobalProxy { get; set; }
 
         #endregion
@@ -263,7 +264,7 @@ namespace Extreme.Net
         #region События (открытые)
 
         /// <summary>
-        /// Возникает каждый раз при продвижении хода выгрузки данных тела сообщения.
+        /// Сalled each time advancing progress unloading the message body data.
         /// </summary>
         public event EventHandler<UploadProgressChangedEventArgs> UploadProgressChanged
         {
@@ -278,7 +279,7 @@ namespace Extreme.Net
         }
 
         /// <summary>
-        /// Возникает каждый раз при продвижении хода загрузки данных тела сообщения.
+        /// Called each time advancing progress retrieve the message body data.
         /// </summary>
         public event EventHandler<DownloadProgressChangedEventArgs> DownloadProgressChanged
         {
@@ -298,18 +299,18 @@ namespace Extreme.Net
         #region Свойства (открытые)
 
         /// <summary>
-        /// Возвращает или задаёт URI интернет-ресурса, который используется, если в запросе указан относительный адрес.
+        /// Get or Set base URI address
         /// </summary>
-        /// <value>Значение по умолчанию — <see langword="null"/>.</value>
+        /// <value>Default — <see langword="null"/>.</value>
         public Uri BaseAddress { get; set; }
 
         /// <summary>
-        /// Возвращает URI интернет-ресурса, который фактически отвечает на запрос.
+        /// Return URI-Adress
         /// </summary>
         public Uri Address { get; private set; }
 
         /// <summary>
-        /// Возвращает последний ответ от HTTP-сервера, полученный данным экземпляром класса.
+        /// Get the last response from the HTTP-server obtained by the instance.
         /// </summary>
         public HttpResponse Response
         {
@@ -320,30 +321,30 @@ namespace Extreme.Net
         }
 
         /// <summary>
-        /// Возвращает или задает прокси-клиент.
+        /// Get or Set Proxy Client
         /// </summary>
-        /// <value>Значение по умолчанию — <see langword="null"/>.</value>
+        /// <value>Default — <see langword="null"/>.</value>
         public ProxyClient Proxy { get; set; }
 
         /// <summary>
-        /// Возвращает или задает метод делегата, вызываемый при проверки сертификата SSL, используемый для проверки подлинности.
+        /// Get or set delegate method called, when an SSL certificate validation is used to authenticate.
         /// </summary>
-        /// <value>Значение по умолчанию — <see langword="null"/>. Если установлено значение по умолчанию, то используется метод, который принимает все сертификаты SSL.</value>
+        /// <value>Default — <see langword="null"/>. When set to the default, use the method that takes all SSL certificates.</value>
         public RemoteCertificateValidationCallback SslCertificateValidatorCallback;
 
         #region Поведение
 
         /// <summary>
-        /// Возвращает или задает значение, указывающие, должен ли запрос следовать ответам переадресации.
+        /// Gets or sets a value indicating whether the request should follow redirection responses.
         /// </summary>
-        /// <value>Значение по умолчанию — <see langword="true"/>.</value>
+        /// <value>Default — <see langword="true"/>.</value>
         public bool AllowAutoRedirect { get; set; }
 
         /// <summary>
-        /// Возвращает или задает максимальное количество последовательных переадресаций.
+        /// Gets or sets the maximum number of consecutive redirects.
         /// </summary>
-        /// <value>Значение по умолчанию - 5.</value>
-        /// <exception cref="System.ArgumentOutOfRangeException">Значение параметра меньше 1.</exception>
+        /// <value>Default Value - 5.</value>
+        /// <exception cref="System.ArgumentOutOfRangeException">The parameter value is less than 1.</exception>
         public int MaximumAutomaticRedirections
         {
             get
@@ -366,10 +367,10 @@ namespace Extreme.Net
         }
 
         /// <summary>
-        /// Возвращает или задаёт время ожидания в миллисекундах при подключении к HTTP-серверу.
+        /// Gets or sets the wait time in milliseconds when connecting to the HTTP-server.
         /// </summary>
-        /// <value>Значение по умолчанию - 60.000, что равняется одной минуте.</value>
-        /// <exception cref="System.ArgumentOutOfRangeException">Значение параметра меньше 0.</exception>
+        /// <value>Default value - 60,000, which is equal to one minute.</value>
+        /// <exception cref="System.ArgumentOutOfRangeException">The parameter value is less than 0.</exception>
         public int ConnectTimeout
         {
             get
@@ -392,10 +393,10 @@ namespace Extreme.Net
         }
 
         /// <summary>
-        /// Возвращает или задает время ожидания в миллисекундах при записи в поток или при чтении из него.
+        /// Gets or sets the wait time in milliseconds when writing to the stream or reading from it.
         /// </summary>
-        /// <value>Значение по умолчанию - 60.000, что равняется одной минуте.</value>
-        /// <exception cref="System.ArgumentOutOfRangeException">Значение параметра меньше 0.</exception>
+        /// <value>Default value - 60,000, which is equal to one minute.</value>
+        /// <exception cref="System.ArgumentOutOfRangeException">The parameter value is less than 0. </exception>
         public int ReadWriteTimeout
         {
             get
@@ -418,10 +419,10 @@ namespace Extreme.Net
         }
 
         /// <summary>
-        /// Возвращает или задает значение, указывающие, нужно ли игнорировать ошибки протокола и не генерировать исключения.
+        /// Gets or sets a value indicating whether to ignore protocol errors and does not need to throw exceptions.
         /// </summary>
-        /// <value>Значение по умолчанию — <see langword="false"/>.</value>
-        /// <remarks>Если установить значение <see langword="true"/>, то в случае получения ошибочного ответа с кодом состояния 4xx или 5xx, не будет сгенерировано исключение. Вы можете узнать код состояния ответа с помощью свойства <see cref="HttpResponse.StatusCode"/>.</remarks>
+        /// <value>Default — <see langword="false"/>.</value>
+        /// <remarks>If you set <see langword="true"/>, in the case of an incorrect response with status code 4xx or 5xx, will not be an exception. You can check the response status code using the properties <see cref="HttpResponse.StatusCode"/>.</remarks>
         public bool IgnoreProtocolErrors { get; set; }
 
         /// <summary>
@@ -988,13 +989,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(string address)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1011,13 +1008,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(Uri address)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1050,13 +1043,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(string address, RequestParams reqParams, bool dontEscape = false)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, reqParams, dontEscape);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1088,13 +1077,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(Uri address, RequestParams reqParams, bool dontEscape = false)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, reqParams, dontEscape);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1155,13 +1140,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(string address, string str, string contentType)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, str, contentType);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1220,13 +1201,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(Uri address, string str, string contentType)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, str, contentType);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1280,13 +1257,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(string address, byte[] bytes, string contentType = "application/octet-stream")
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, bytes, contentType);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1336,13 +1309,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(Uri address, byte[] bytes, string contentType = "application/octet-stream")
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, bytes, contentType);
             });
-            
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1396,13 +1365,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(string address, Stream stream, string contentType = "application/octet-stream")
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, stream, contentType);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1452,13 +1417,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(Uri address, Stream stream, string contentType = "application/octet-stream")
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, stream, contentType);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1499,13 +1460,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(string address, string path)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, path);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1542,13 +1499,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(Uri address, string path)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, path);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1580,13 +1533,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(string address, HttpContent content)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, content);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         /// <summary>
@@ -1617,13 +1566,9 @@ namespace Extreme.Net
 
         public async Task<HttpResponse> PostAsync(Uri address, HttpContent content)
         {
-            var task = new Task<HttpResponse>(() => {
+            return await Task.Run(() => {
                 return this.Post(address, content);
             });
-
-            task.Start();
-
-            return await task;
         }
 
         #endregion

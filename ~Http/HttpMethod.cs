@@ -10,6 +10,7 @@ namespace Extreme.Net
         HEAD,
         DELETE,
         POST,
-        PUT
+        PUT,
+        OPTIONS
     }
 }
