@@ -2402,7 +2402,7 @@ namespace Extreme.Net
                 if (++_redirectionCount > _maximumAutomaticRedirections)
                     throw NewHttpException(Resources.HttpException_LimitRedirections);
 
-                ClearRequestData();
+                ClearRequestData(false);
                 return Request(HttpMethod.GET, _response.RedirectAddress, null);
             }
 
@@ -3016,14 +3016,16 @@ namespace Extreme.Net
             return _closedHeaders.Contains(name, StringComparer.OrdinalIgnoreCase);
         }
 
-        private void ClearRequestData()
+        private void ClearRequestData(bool clearHeaders = true)
         {
             _content = null;
 
             _temporaryUrlParams = null;
             _temporaryParams = null;
             _temporaryMultipartContent = null;
-            _temporaryHeaders = null;
+
+            if (clearHeaders)
+                _temporaryHeaders = null;
         }
 
         private HttpException NewHttpException(string message,
