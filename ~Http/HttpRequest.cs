@@ -180,7 +180,7 @@ namespace Extreme.Net
         {
             "Accept-Encoding",
             "Content-Length",
-            "Content-Type",
+            //"Content-Type",
             "Connection",
             "Proxy-Connection",
             "Host"
@@ -2862,11 +2862,7 @@ namespace Extreme.Net
 
             if (CanContainsRequestBody(method))
             {
-                if (contentLength > 0)
-                {
-                    headers["Content-Type"] = contentType;
-                }
-
+                headers["Content-Type"] = contentType;
                 headers["Content-Length"] = contentLength.ToString();
             }
 
