@@ -178,7 +178,7 @@ namespace Extreme.Net
         // Заголовки, которые можно задать только с помощью специального свойства/метода.
         private static readonly List<string> _closedHeaders = new List<string>()
         {
-            "Accept-Encoding",
+            //"Accept-Encoding",
             "Content-Length",
             //"Content-Type",
             "Connection",
