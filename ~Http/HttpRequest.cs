@@ -181,7 +181,7 @@ namespace Extreme.Net
             //"Accept-Encoding",
             "Content-Length",
             //"Content-Type",
-            "Connection",
+            //"Connection",
             "Proxy-Connection",
             "Host"
         };
