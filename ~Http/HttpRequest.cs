@@ -2563,9 +2563,10 @@ namespace Extreme.Net
         private bool CanContainsRequestBody(HttpMethod method)
         {
             return
-                (method == HttpMethod.PUT) ||
-                (method == HttpMethod.POST) ||
-                (method == HttpMethod.DELETE);
+                method == HttpMethod.PUT ||
+                method == HttpMethod.POST ||
+                method == HttpMethod.DELETE ||
+                method == HttpMethod.PATCH;
         }
 
         #endregion

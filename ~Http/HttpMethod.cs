@@ -11,6 +11,8 @@ namespace Extreme.Net
         DELETE,
         POST,
         PUT,
-        OPTIONS
+        OPTIONS,
+        PATCH,
+        TRACE
     }
 }
