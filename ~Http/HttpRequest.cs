@@ -2485,7 +2485,7 @@ namespace Extreme.Net
             var contentLength = 0L;
             var contentType = string.Empty;
 
-            if (CanContainsRequestBody(method) && (_content != null))
+            if (CanContainRequestBody(method) && (_content != null))
             {
                 contentType = _content.ContentType;
                 contentLength = _content.CalculateContentLength();
@@ -2560,7 +2560,7 @@ namespace Extreme.Net
             }
         }
 
-        private bool CanContainsRequestBody(HttpMethod method)
+        public static bool CanContainRequestBody(HttpMethod method)
         {
             return
                 method == HttpMethod.PUT ||
@@ -2861,7 +2861,7 @@ namespace Extreme.Net
             if (CharacterSet != null)
                 headers["Accept-Charset"] = GetCharsetHeader();
 
-            if (CanContainsRequestBody(method))
+            if (CanContainRequestBody(method))
             {
                 headers["Content-Type"] = contentType;
                 headers["Content-Length"] = contentLength.ToString();
