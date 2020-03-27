@@ -328,9 +328,9 @@ namespace Extreme.Net
 
         /// <summary>
         /// Возвращает или задает возможные протоколы SSL.
-        /// По умолчанию используется: <value>SslProtocols.Tls | SslProtocols.Tls12 | SslProtocols.Tls11</value>.
+        /// По умолчанию используется: <value>OS Auto Detect unsecure protocols</value>.
         /// </summary>
-        public SslProtocols SslProtocols { get; set; } = SslProtocols.Tls | SslProtocols.Tls12 | SslProtocols.Tls11;
+        public SslProtocols SslProtocols { get; set; } = SslProtocols.None;
 
         /// <summary>
         /// Возвращает или задает метод делегата, вызываемый при проверки сертификата SSL, используемый для проверки подлинности.
