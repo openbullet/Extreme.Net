@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -2761,20 +2761,12 @@ namespace Extreme.Net
 
         private string GenerateStartingLine(HttpMethod method)
         {
-            string query;
+            // Fix by Igor Vacil'ev: sometimes proxies returns 404 when used full path.
+            string query = _currentProxy != null && _currentProxy.Type == ProxyType.Http && _currentProxy.AbsoluteUriInStartingLine
+                ? Address.AbsoluteUri
+                : Address.PathAndQuery;
 
-            if (_currentProxy != null &&
-                (_currentProxy.Type == ProxyType.Http || _currentProxy.Type == ProxyType.Chain))
-            {
-                query = Address.AbsoluteUri;
-            }
-            else
-            {
-                query = Address.PathAndQuery;
-            }
-
-            return string.Format("{0} {1} HTTP/{2}\r\n",
-                method, query, ProtocolVersion);
+            return $"{method} {query} HTTP/{ProtocolVersion}\r\n";
         }
 
         // Есть 3 типа заголовков, которые могут перекрываться другими. Вот порядок их установки:
