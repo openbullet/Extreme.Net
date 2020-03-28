@@ -2817,24 +2817,17 @@ namespace Extreme.Net
 
             if (httpProxy != null)
             {
-                if (KeepAlive)
-                    headers["Proxy-Connection"] = "keep-alive";
-                else
-                    headers["Proxy-Connection"] = "close";
-
                 if (!string.IsNullOrEmpty(httpProxy.Username) ||
                     !string.IsNullOrEmpty(httpProxy.Password))
                 {
                     headers["Proxy-Authorization"] = GetProxyAuthorizationHeader(httpProxy);
                 }
             }
+
+            if (KeepAlive)
+                headers["Connection"] = "keep-alive";
             else
-            {
-                if (KeepAlive)
-                    headers["Connection"] = "keep-alive";
-                else
-                    headers["Connection"] = "close";
-            }
+                headers["Connection"] = "close";
 
             if (!string.IsNullOrEmpty(Username) || !string.IsNullOrEmpty(Password))
             {
