@@ -2762,7 +2762,8 @@ namespace Extreme.Net
         private string GenerateStartingLine(HttpMethod method)
         {
             // Fix by Igor Vacil'ev: sometimes proxies returns 404 when used full path.
-            string query = _currentProxy != null && _currentProxy.Type == ProxyType.Http && _currentProxy.AbsoluteUriInStartingLine
+            string query = _currentProxy != null && _currentProxy.Type == ProxyType.Http && 
+                (_currentProxy.AbsoluteUriInStartingLine || Address.Scheme == "http")
                 ? Address.AbsoluteUri
                 : Address.PathAndQuery;
 
