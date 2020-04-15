@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Extreme.Net
 {
@@ -225,7 +226,17 @@ namespace Extreme.Net
 
                     if (ips.Length > 0)
                     {
-                        ipAddr = ips[0];
+                        int i;
+                        Regex regex = new Regex(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
+                        for (i = 0; i < ips.Length; i++)
+                        {
+                            Match match = regex.Match(ips[i].ToString());
+                            if (match.Success)
+                            {
+                                break;
+                            }
+                        }
+                        ipAddr = ips[i];
                     }
                 }
                 catch (Exception ex)
